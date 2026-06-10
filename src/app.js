@@ -4,12 +4,13 @@ const express = require("express");
 const petsRouter = require("../pets/pets.routes");
 const authRouter = require("../auth/auth.routes");
 const sessionRouter = require("../auth/session.routes");
+const allowedOrigin = process.env.ALLOWED_ORIGIN || "http://localhost:4200";
 
 function createApp() {
   const app = express();
 
   app.use((req, res, next) => {
-    res.setHeader("Access-Control-Allow-Origin", "https://10.169.140.178:4200");
+    res.setHeader("Access-Control-Allow-Origin", allowedOrigin);
     res.setHeader(
       "Access-Control-Allow-Methods",
       "GET, POST, PUT, DELETE, OPTIONS",
