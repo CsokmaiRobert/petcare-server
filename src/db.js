@@ -8,8 +8,11 @@ let storagePath;
 
 if (process.env.RAILWAY_VOLUME_MOUNT_PATH) {
     storagePath = path.join(process.env.RAILWAY_VOLUME_MOUNT_PATH, "database.sqlite");
+} else if (process.env.DATA_DIR) {
+    storagePath = path.join(process.env.DATA_DIR, "database.sqlite");
 } else if (process.env.NODE_ENV === 'production') {
-    storagePath = "/data/database.sqlite";
+    console.warn("DATA_DIR not set, using fallback ./data");
+    storagePath = path.join(__dirname, "../data", "database.sqlite");
 } else {
     storagePath = path.join(__dirname, "../database.sqlite");
 }
